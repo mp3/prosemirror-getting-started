@@ -3,12 +3,23 @@ import { useEffect, useRef } from 'preact/hooks'
 import { schema } from 'prosemirror-schema-basic'
 import { EditorState } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
+import { undo, redo, history } from 'prosemirror-history'
+import { keymap } from 'prosemirror-keymap'
 
 const Main = () => {
   const editorRef = useRef<HTMLDivElement>(null)
   
   useEffect(() => {
-    const state = EditorState.create({ schema })
+    const state = EditorState.create({
+      schema,
+      plugins: [
+        history(),
+        keymap({
+          'Mod-z': undo,
+          'Mod-y': redo
+        })
+      ]
+    })
     const view = new EditorView(editorRef.current, {
       state,
       dispatchTransaction(transaction) {
