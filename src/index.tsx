@@ -5,6 +5,7 @@ import { EditorState } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
 import { undo, redo, history } from 'prosemirror-history'
 import { keymap } from 'prosemirror-keymap'
+import { baseKeymap } from 'prosemirror-commands'
 
 const Main = () => {
   const editorRef = useRef<HTMLDivElement>(null)
@@ -17,7 +18,8 @@ const Main = () => {
         keymap({
           'Mod-z': undo,
           'Mod-y': redo
-        })
+        }),
+        keymap(baseKeymap)
       ]
     })
     const view = new EditorView(editorRef.current, {
