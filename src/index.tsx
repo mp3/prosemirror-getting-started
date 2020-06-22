@@ -25,7 +25,7 @@ const Main = () => {
     const view = new EditorView(editorRef.current, {
       state,
       dispatchTransaction(transaction) {
-        console.log("Document size went from", transaction.before.content.size, "to", transaction.doc.content.size)
+        console.log(`Document size went from ${transaction.before.content.size} to ${transaction.doc.content.size}`)
         const newState = view.state.apply(transaction)
         view.updateState(newState)
       }
